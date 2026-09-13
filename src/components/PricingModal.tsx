@@ -114,3 +114,4 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, onU
     </div>
   );
 };
+
