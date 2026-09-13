@@ -1,0 +1,16 @@
+services:
+  removal-studio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: removal-studio-app
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8080}:80"
+    environment:
+      - NODE_ENV=production
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
