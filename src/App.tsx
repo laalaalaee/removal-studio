@@ -1,22 +1,14 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { SunsetBanner } from './components/SunsetBanner';
 import { Header } from './components/Header';
 import { HeroUploadSection } from './components/HeroUploadSection';
 import { QualityShowcase } from './components/QualityShowcase';
 import { UseCasesSection } from './components/UseCasesSection';
-import { EfficiencySection } from './components/EfficiencySection';
-import { TestimonialsSection } from './components/TestimonialsSection';
 import { Footer } from './components/Footer';
 import { ComparisonViewer } from './components/ComparisonViewer';
 import { ActionBar } from './components/ActionBar';
 import { ProcessingOverlay } from './components/ProcessingOverlay';
 import { PrivacyModal } from './components/PrivacyModal';
 import { TermsModal } from './components/TermsModal';
-import { AccountlessModal } from './components/AccountlessModal';
-import { ApiModal } from './components/ApiModal';
-import { BulkModal } from './components/BulkModal';
-import { PluginsModal } from './components/PluginsModal';
-import { PricingModal } from './components/PricingModal';
 import { UrlInputModal } from './components/UrlInputModal';
 import { WalkthroughModal } from './components/WalkthroughModal';
 import { validateAndLoadImage } from './services/imageValidation';
@@ -44,10 +36,6 @@ export const App: React.FC = () => {
   // Modals
   const [isPrivacyOpen, setIsPrivacyOpen] = useState<boolean>(false);
   const [isTermsOpen, setIsTermsOpen] = useState<boolean>(false);
-  const [isApiOpen, setIsApiOpen] = useState<boolean>(false);
-  const [isBulkOpen, setIsBulkOpen] = useState<boolean>(false);
-  const [isPluginsOpen, setIsPluginsOpen] = useState<boolean>(false);
-  const [isPricingOpen, setIsPricingOpen] = useState<boolean>(false);
   const [isUrlModalOpen, setIsUrlModalOpen] = useState<boolean>(false);
   const [isWalkthroughOpen, setIsWalkthroughOpen] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
@@ -56,10 +44,6 @@ export const App: React.FC = () => {
     } catch {
       return false;
     }
-  });
-  const [authModal, setAuthModal] = useState<{ isOpen: boolean; type: 'login' | 'signup' }>({
-    isOpen: false,
-    type: 'login',
   });
 
   const handleDismissWalkthrough = () => {
@@ -295,18 +279,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-paper text-ink selection:bg-accent selection:text-accent-ink font-body transition-colors">
-      {/* Sunset Banner (matching remove.bg) */}
-      <SunsetBanner onOpenPrivacy={() => setIsPrivacyOpen(true)} />
-
-      {/* Remove.bg-Style Header */}
       <Header
-        onOpenPrivacy={() => setIsPrivacyOpen(true)}
-        onOpenTerms={() => setIsTermsOpen(true)}
-        onOpenApi={() => setIsApiOpen(true)}
-        onOpenBulk={() => setIsBulkOpen(true)}
-        onOpenPlugins={() => setIsPluginsOpen(true)}
-        onOpenPricing={() => setIsPricingOpen(true)}
-        onOpenAuth={(type) => setAuthModal({ isOpen: true, type })}
         onScrollToUpload={scrollToUpload}
         isDark={isDark}
         onToggleTheme={toggleTheme}
@@ -365,7 +338,7 @@ export const App: React.FC = () => {
           </div>
         )}
 
-        {/* State 4: Remove.bg Full Homepage */}
+        {/* State 4: Homepage */}
         {!isProcessing && !result && progress.stage !== 'error' && (
           <div className="w-full flex flex-col items-center">
             {/* 1. Hero with 2-Column Layout & Signature Upload Box */}
@@ -383,28 +356,11 @@ export const App: React.FC = () => {
             {/* 3. "One Tool, Endless Uses" 9-Card Grid */}
             <UseCasesSection />
 
-            {/* 4. Efficiency & Bulk Processing Highlight */}
-            <EfficiencySection
-              onOpenBulk={() => setIsBulkOpen(true)}
-              onOpenApi={() => setIsApiOpen(true)}
-            />
-
-            {/* 5. Testimonials ("They love us. You will too.") */}
-            <TestimonialsSection />
           </div>
         )}
       </main>
 
-      {/* Full Remove.bg Multi-Column Footer */}
-      <Footer
-        onOpenPrivacy={() => setIsPrivacyOpen(true)}
-        onOpenTerms={() => setIsTermsOpen(true)}
-        onOpenApi={() => setIsApiOpen(true)}
-        onOpenBulk={() => setIsBulkOpen(true)}
-        onOpenPlugins={() => setIsPluginsOpen(true)}
-        onOpenPricing={() => setIsPricingOpen(true)}
-        onScrollToUpload={scrollToUpload}
-      />
+      <Footer onOpenPrivacy={() => setIsPrivacyOpen(true)} onOpenTerms={() => setIsTermsOpen(true)} />
 
       {/* Modals & Dialogs */}
       <PrivacyModal
@@ -415,34 +371,6 @@ export const App: React.FC = () => {
       <TermsModal
         isOpen={isTermsOpen}
         onClose={() => setIsTermsOpen(false)}
-      />
-
-      <AccountlessModal
-        isOpen={authModal.isOpen}
-        onClose={() => setAuthModal({ isOpen: false, type: 'login' })}
-        actionType={authModal.type}
-      />
-
-      <ApiModal
-        isOpen={isApiOpen}
-        onClose={() => setIsApiOpen(false)}
-      />
-
-      <BulkModal
-        isOpen={isBulkOpen}
-        onClose={() => setIsBulkOpen(false)}
-        onUploadClick={scrollToUpload}
-      />
-
-      <PluginsModal
-        isOpen={isPluginsOpen}
-        onClose={() => setIsPluginsOpen(false)}
-      />
-
-      <PricingModal
-        isOpen={isPricingOpen}
-        onClose={() => setIsPricingOpen(false)}
-        onUploadClick={scrollToUpload}
       />
 
       <UrlInputModal

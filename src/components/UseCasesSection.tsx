@@ -8,7 +8,6 @@ import {
   ShoppingBag,
   Tv,
   Car,
-  Building2,
 } from 'lucide-react';
 
 interface UseCaseCard {
@@ -57,11 +56,6 @@ const USE_CASES: UseCaseCard[] = [
     title: 'for Car Dealerships',
     subtitle: 'Extract vehicles cleanly for showroom and inventory listings.',
     icon: <Car className="w-5 h-5 text-accent" />,
-  },
-  {
-    title: 'for Enterprise',
-    subtitle: 'Scale to thousands of internal assets with zero data compliance risk.',
-    icon: <Building2 className="w-5 h-5 text-accent" />,
   },
 ];
 
