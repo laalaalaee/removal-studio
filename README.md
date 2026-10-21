@@ -2,6 +2,10 @@
 
 Free, open-source background remover that runs entirely in your browser. No uploads, no accounts, no limits.
 
+![Removal Studio home screen](docs/home.png)
+
+![Before and after comparison slider](docs/result.png)
+
 Your image is processed on your own device with [`@imgly/background-removal`](https://github.com/imgly/background-removal-js) (ONNX Runtime, WebGPU with a WebAssembly fallback). Nothing is sent to a server.
 
 ## Features
